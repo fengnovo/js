@@ -1,4 +1,7 @@
 function Lock(key, brand) {
+    if (!(this instanceof Lock)) {
+        throw new Error('要使用new调用!!!');
+    }
     this.key = key;
     this.brand = brand;
 }
