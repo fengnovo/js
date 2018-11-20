@@ -1,0 +1,5 @@
+export const VIEW_DETAIL = 'VIEW_DETAIL';
+export const GET_LIST = 'GET_LIST';
+export const ASYC_GET_LIST = 'ASYC_GET_LIST';
+export const CHANGE_BTN_STATE = 'CHANGE_BTN_STATE';
+export const DISABLED_BTN_STATE = 'DISABLED_BTN_STATE';
