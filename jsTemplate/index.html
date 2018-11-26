@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script id="temp" type="text/template">
+        <h2>nice 今天天气挺不错 今天是
+            <%= y %>年
+            <%=m%>月
+            <%=d%>日 看一下今天的电影排行条目</h2>
+        <ul>
+            <% for(var i=0;i<news.length;i++){ %>
+            <li>电影名称:
+                <%=news[i].title  %> 阅读人数:
+                <%= news[i].reader %> 上映时间:
+                <%= news[i].date %>
+            </li>
+            <% }%>
+        </ul>
+        <h2>一下是阅读量大于1000的电影条目</h2>
+        <ul>
+            <% for(var i=0;i<news.length;i++){
+                if(news[i].reader>1000) {
+           %>
+                    <li>电影名称:
+                        <%=news[i].title  %> 阅读人数:
+                        <%= news[i].reader %> 上映时间:
+                        <%= news[i].date %>
+                    </li>
+                    <%
+                    }
+                }%>
+        </ul>
+    </script>
+    <script>
+        // var temp = document.getElementById('temp');
+        var app = document.getElementById('app');
+        // var fragment = document.createDocumentFragment();
+        // var child;
+        // while (child = temp.firstChild) {
+        //     fragment.appendChild(child);
+        // }
+        var data = {
+            y:2018,
+            m:7,
+            d:4,
+            news:[
+                {'title':"霸王别姬","reader":"864","date":"2012年"},
+                {'title':"大明王朝1566","reader":"15864","date":"2006年"},
+                {'title':"黄金搭档2012","reader":"854","date":"2012年"},
+                {'title':"大明王朝1566","reader":"15864","date":"2006年"},
+                {'title':"黄金搭档2012","reader":"854","date":"2012年"},
+                {'title':"大明王朝1566","reader":"15864","date":"2006年"},
+                {'title':"黄金搭档2012","reader":"854","date":"2012年"}
+            ]
+        }
+        function compile(template, data) {
+            var temp = /\<%/.test(template) ? template : document.getElementById(template).innerHTML;
+            console.log(temp);
+            var str = 'var template = ""; template += "' + temp.replace(/[\n\r\t]+/g, '')
+                .replace(/\<%=(.*?)\%\>/g, '" + $1 + "')
+                .replace(/\<%/g, '";')
+                .replace(/\%>/g, ' p += " ') + '"; return template;';
+            console.log(str);
+            var fn = new Function('data', str);
+            return fn.bind(data);
+        }
+        var html = compile('temp', data)();
+        console.log(html);
+        // app.appendChild(fragment);
+    </script>
+</body>
+
+</html>

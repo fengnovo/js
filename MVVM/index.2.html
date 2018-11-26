@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mvvm</title>
+</head>
+<body>
+    <div>
+        <input id="ipt" value="" v-model="msg" />
+        <div id="showArea"></div>
+    </div>
+    <script>
+    var data = {
+        msg: 'Hello World!'
+    }
+    document.querySelector('#ipt').addEventListener('keyup', function (event) {
+        // document.querySelector('#showArea').innerHTML = event.target.value;
+        data.msg = event.target.value;
+    });
+    Object.keys(data).forEach(function(k) {
+        Object.defineProperty(data, k, {
+            get: function () {
+                console.log('get ' + k);
+            },
+            set: function(val) {
+                document.querySelector('#showArea').innerHTML = val;
+            }
+        })
+    });
+
+    </script>
+</body>
+</html>
