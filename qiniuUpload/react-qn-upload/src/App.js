@@ -160,14 +160,12 @@ class App extends Component {
         secretKey: this.secretKey.value,
         scopeVal: this.scopeVal.value
       };
-      let tokenRes = await axios({
-        method: 'post',
-        url: 'http://localhost:3001/upload', 
-        params: data
-      });
-    this.uploadToken = tokenRes.data.token;
       
-    tokenRes.then(d => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/upload', 
+      params: data
+    }).then(d => {
             let bucketLists = d.data.bucketLists.map(i => {
                 var s3;
                 Object.keys(i).forEach(k => {
