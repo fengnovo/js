@@ -161,11 +161,11 @@ class App extends Component {
         scopeVal: this.scopeVal.value
       };
       
-    axios({
-      method: 'post',
-      url: 'http://localhost:3001/upload', 
-      params: data
-    }).then(d => {
+          axios({
+            method: 'post',
+            url: 'http://localhost:3001/upload', 
+            params: data
+          }).then(d => {
             let bucketLists = d.data.bucketLists.map(i => {
                 var s3;
                 Object.keys(i).forEach(k => {
@@ -182,6 +182,37 @@ class App extends Component {
             this.uploadFile({token: d.data.token});
           });
 
+    }
+
+    fileChange() {
+          //console.log(this.files)
+          var data = new FormData();
+          data.append('token', self.uploadToken);
+          data.append('file', this.files[0]);
+          axiosInstance({
+              method: 'POST',
+              url: 'http://up.qiniu.com',
+              data: data,
+              onUploadProgress: function(progressEvent) {
+                  var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+                  //console.log(percentCompleted)
+                  //对应上传进度条
+                  self.progress = percentCompleted;
+              },
+          })
+          .then(function(res) {
+              //console.log('res',res)
+              let { base_url, path } = res.data;
+              //页面所用字段
+              self.previewAvatar = `${base_url}${path}?imageView2/1/w/154/h/154`;
+              //传给后台不完整
+              self.formData.avatar = `${path}`;
+
+          })
+          .catch(function(err) {
+              console.log('err', err);
+          });
+      });
     }
 
     componentDidMount() {
@@ -213,7 +244,7 @@ class App extends Component {
                     <div>
                       <div className="upFile">
                           <div>
-                              <input type="file" id=""/>
+                              <input type="file" onChange={(files) => {this.files = files;}}/>
                           </div>
                       </div>
                     </div>
