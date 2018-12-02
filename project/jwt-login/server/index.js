@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jwt-simple');
+const jwt = require('simple-json-web-token');
 const {User} = require('./model/User');
 const auth = require('./auth');
 const {

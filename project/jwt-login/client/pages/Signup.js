@@ -7,6 +7,7 @@ class Signup extends Component {
         let username = this.username.value;
         let password = this.password.value;
         signup({username, password}).then(response => {
+            console.log(response);
             if(response) {
                 this.props.history.push('/login');
             }

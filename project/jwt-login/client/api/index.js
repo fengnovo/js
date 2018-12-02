@@ -18,8 +18,5 @@ export function signup(data) {
         url: 'http://localhost:8001/signup',
         method: 'post',
         data
-    }).then(response => {
-        // let data = response.data;
-        return response.json();
     });
 }

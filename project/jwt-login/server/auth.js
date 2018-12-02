@@ -1,4 +1,4 @@
-const jwt = require('jwt-simple');
+const jwt = require('simple-json-web-token');
 const { secret } = require('./config');
 module.exports = function (request, response, next) {
     // 注意是request.headers不是equest.header
