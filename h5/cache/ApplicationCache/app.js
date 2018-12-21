@@ -1,0 +1,1 @@
+alert('我是app1.js'); 
