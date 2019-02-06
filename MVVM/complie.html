@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>complie</title>
+</head>
+<body>
+    <div id="app"></div>
+    <div id="template">
+        <input value="" v-model="msg" />
+        <span> {{ text }} </span>
+        <ul id="uls">
+            <li>测试1</li>
+            <li>测试2</li>
+            <li>测试3</li>
+            <li>测试4</li>
+            <li>测试5</li>
+        </ul>
+    </div>
+    <script>
+    var data = {
+        msg: 'Hello World!',
+        text: 'ok'
+    }
+    var template = document.querySelector('#template');
+    var app = document.querySelector('#app');
+    function complie(node) {
+        var fragment = document.createDocumentFragment();
+        var child;
+        while (child = node.firstChild) {
+            fragment.appendChild(child);
+        }
+        return fragment;
+    }
+
+    app.append(complie(template));
+
+    </script>
+</body>
+</html>
